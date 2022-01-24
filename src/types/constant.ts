@@ -25,7 +25,24 @@ export enum ActiveStatType {
 
 export enum ActiveSubStatType {
     Save_Throws = "Save Throws",
-    Athletics = "Athletics"
+    Athletics = "Athletics",
+    Acrobatics = "Acrobatics",
+    Sleight_of_hand = "Sleight of hand",
+    Stealth = "Stealth",
+    Arcana = "Arcana",
+    History = "History",
+    Investigation = "Investigation",
+    Nature = "Nature",
+    Religion = "Religion",
+    Animal_handling = "Animal handling",
+    Insight = "Insight",
+    Medicine = "Medicine",
+    Perception = "Perception",
+    Survival = "Survival",
+    Deception = "Deception",
+    Intimidation = "Intimidation",
+    Performance = "Performance",
+    Persuasion = "Persuasion"
 }
 
 export enum PassiveStatType {
