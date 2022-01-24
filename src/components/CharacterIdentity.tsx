@@ -1,49 +1,42 @@
-import {Col, Container, Row} from "react-bootstrap";
-import React from "react";
-import Form from "react-bootstrap/Form"
-import {useState} from "@hookstate/core";
+import React from 'react';
+import {Box, Card, CardContent, CardMedia, Typography} from "@mui/material";
 import {profileStateGlobal} from "../App";
+import {useState} from "@hookstate/core";
 
 export const CharacterIdentity = () => {
-    const profile = useState(profileStateGlobal)
+    const profile = useState(profileStateGlobal);
     return (
-        <>
-            <Container>
-                <Row>
-                    <Col><VL label="Character Name" value={profile.name} size="lg"/></Col>
-                    <Col><VL value={profile.race} label="Race"/></Col>
-                    <Col><VL value={profile.background} label="Background"/></Col>
-                    <Col><VL value={profile.class} label="class"/></Col>
-                </Row>
-                <Row>
-                    <Col xs={3} md="3"/>
-                    <Col><VL value={profile.alignment} label="Alignment"/></Col>
-                    <Col><VL value={profile.experiencePoint} label="Experience Points"/></Col>
-                    <Col><VL value={profile.archetype} label="Archetype"/></Col>
-                </Row>
-            </Container>
-        </>
-    );
+        <Card sx={{display: "flex", minWidth: 275, maxHeight: 200, marginTop: "10px"}}>
+            <CardMedia
+                component="img"
+                image="/character_image.jpeg"
+                alt="Paella dish"
+                sx={{
+                    width: "150px"
+                }}
+            />
+            <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                <CardContent sx={{flex: '1 0 auto'}}>
+                    <Typography component="div" variant="h5">
+                        {profile.name.get()}
+                    </Typography>
+                    <Typography variant="subtitle2" color="text.secondary" component="div">
+                        Race: {profile.race.get()}
+                    </Typography>
+                    <Typography variant="subtitle2" color="text.secondary" component="div">
+                        Class: {profile.class.get()}
+                    </Typography>
+                    <Typography variant="subtitle2" color="text.secondary" component="div">
+                        Background: {profile.background.get()}
+                    </Typography>
+                    <Typography variant="subtitle2" color="text.secondary" component="div">
+                        Alignment: {profile.alignment.get()}
+                    </Typography>
+                    <Typography variant="subtitle2" color="text.secondary" component="div">
+                        Archetype: {profile.archetype.get()}
+                    </Typography>
+                </CardContent>
+            </Box>
+        </Card>
+    )
 }
-
-export interface ValueAndLabelProps {
-    value: any;
-    label: string;
-    size?: "sm" | "lg";
-}
-
-const VL = ({value, label, size}: ValueAndLabelProps) => (
-    <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Control
-            type="email"
-            placeholder="Enter email"
-            value={value.get()}
-            size={size ?? "sm"}
-            onChange={(event) => value.set(() => event.target.value)}
-        />
-        <Form.Text className="text-muted">
-            {label}
-        </Form.Text>
-    </Form.Group>
-)
-

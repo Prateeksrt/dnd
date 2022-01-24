@@ -1,20 +1,15 @@
 import React from 'react';
+import {Container} from "@mui/material";
 import {CharacterIdentity} from "./CharacterIdentity";
-import {Container} from "react-bootstrap";
+import {CharacterPassiveStats} from "./CharacterPassiveStats";
+import {CharacterActiveStats} from "./CharacterActiveStats";
 
-const sheetContainerStyle = {
-    padding: "15px",
-    backgroundColor: "grey",
-}
-
-const CharacterSheet = () => {
+export const CharacterSheet = () => {
     return (
-        <Container style={sheetContainerStyle}>
-            <CharacterIdentity/>
+        <Container>
+            <CharacterIdentity />
+            <CharacterPassiveStats />
+            <CharacterActiveStats />
         </Container>
     );
-};
-
-CharacterSheet.propTypes = {};
-
-export default CharacterSheet;
+}

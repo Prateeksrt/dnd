@@ -2,7 +2,7 @@ import {
     Archetype,
     CharacterBackground,
     CharacterClass,
-    CharacterRace
+    CharacterRace, PassiveStatType, ActiveStatType, ActiveSubStatType
 } from "../types/constant";
 
 export interface SpecSheetProps {
@@ -17,4 +17,27 @@ export interface Profile {
     background: CharacterBackground;
     race: CharacterRace;
     name: string;
+}
+
+export interface ActiveStats {
+    type: ActiveStatType,
+    value: number,
+    modifier: number,
+    subStats: ActiveSubStats[]
+}
+
+export interface ActiveSubStats {
+    type: ActiveSubStatType,
+    modifier: number,
+    proficient: boolean,
+}
+
+export interface PassiveStats {
+    type: PassiveStatType,
+    value: number
+}
+
+export interface CharacterStats {
+    passiveStats?: PassiveStats[],
+    activeStats: ActiveStats[]
 }
