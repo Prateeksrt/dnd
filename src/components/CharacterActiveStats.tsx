@@ -1,5 +1,5 @@
-import React from 'react';
-import {useState} from "@hookstate/core";
+import React, {useState} from 'react';
+import {useHookstate} from "@hookstate/core";
 import {statStateGlobal} from "../App";
 import {
     Accordion,
@@ -14,24 +14,40 @@ import {ActiveStats, ActiveSubStats} from "./PropTypes";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export const CharacterActiveStats = () => {
-    const activeStats = useState(statStateGlobal).activeStats.get()
+    const activeStats = useHookstate(statStateGlobal).activeStats.get();
+    const [expanded, setExpanded] = useState<boolean|string>(false);
+    const handleChange = (panel: string, isExpanded: boolean) => {
+        setExpanded(isExpanded ? panel : false)
+    }
     return (
         <Container>
-            {activeStats.map(s => <ActiveStatComponent {...s} />)}
+            {activeStats
+                .map(s => ({
+                    ...s,
+                    expanded: expanded === s.type.toString(),
+                    onChange: (event: any, isExpanded: boolean) => handleChange(s.type.toString(), isExpanded)
+                }) )
+                .map(s => <ActiveStatComponent {...s} />)}
         </Container>
     )
 }
 
-const ActiveStatComponent = (s: ActiveStats) => {
+interface ExpandedController {
+    expanded: boolean,
+    onChange: (event: any, x: boolean) => void
+}
+
+
+const ActiveStatComponent = (s: ActiveStats & ExpandedController) => {
     return (
-        <Accordion>
+        <Accordion expanded={s.expanded} onChange={s.onChange}>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
             >
                 <Typography>
-                    {`${s.type} ${s.value} (${s.modifier > 0 ? "+" : "-"}${s.modifier})`}
+                    {`${s.type} ${s.value} (${s.modifier > 0 ? "+" : " "}${s.modifier})`}
                 </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -47,7 +63,7 @@ const ActiveSubStatComponent = (sb: ActiveSubStats) => {
     return (
         <ListItem alignItems="flex-start">
             <Typography variant="caption">
-                {`${sb.proficient? "*" : "_"} ${sb.modifier > 0 ? "+" : ""}${sb.modifier} ${sb.type}`}
+                {`${sb.modifier > 0 ? "+" : ""}${sb.modifier} ${sb.type}`}
             </Typography>
         </ListItem>
     )
