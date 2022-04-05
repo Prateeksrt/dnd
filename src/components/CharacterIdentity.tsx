@@ -9,7 +9,7 @@ export const CharacterIdentity = () => {
         <Card sx={{display: "flex", minWidth: 275, maxHeight: 200, marginTop: "10px"}}>
             <CardMedia
                 component="img"
-                image="/character_image.jpeg"
+                image="/dnd/character_image.jpeg"
                 alt="Paella dish"
                 sx={{
                     width: "150px"
